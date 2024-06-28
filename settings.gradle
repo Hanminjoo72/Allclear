@@ -1,0 +1,3 @@
+rootProject.name = 'allclear'
+include 'allclear-user'
+include 'allclear-course'
