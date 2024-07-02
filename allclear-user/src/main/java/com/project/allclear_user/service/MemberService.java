@@ -35,4 +35,13 @@ public class MemberService {
 //        }
         return null;
     }
+
+    public void changeInfo(SignupDto.RequestDto requestDto) {
+        //Student student = memberRepository.findById()
+        Student s;
+        String pw = requestDto.getPassword();
+        String encodedPw = passwordEncoder.encode(pw);
+        Student newStudent = MemberConverter.toEntity(requestDto, encodedPw);
+        memberRepository.save(newStudent);
+    }
 }
