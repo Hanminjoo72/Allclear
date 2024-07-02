@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="expires" content="0">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta http-equiv="Content-Script-Type" content="text/javascript" />
+    <meta http-equiv="Content-Style-Type" content="text/css" />
+    <link href="../static/css/dwu_style.css" rel="stylesheet" type="text/css">
+
+    <style type="text/css">
+        <!--
+        .form {	font-family: "돋움";
+            font-size: 9pt;
+            color: #666666;
+            height: 18px;
+            width: 123px;
+            border: 1px solid #d8b8c0;
+            padding-right: 5px;
+            padding-left: 5px;
+        }
+        -->
+    </style>
+    <title>::동덕여자대학교 수강신청 시스템::</title>
+</head>
+<body>
+
+<table width="100%" height="100%" border="0" cellpadding="0" cellspacing="0">
+    <tr>
+        <td height="10%" align="center" bgcolor="#d1d1d1">&nbsp;</td>
+    </tr>
+    <tr>
+        <td height="600" align="center" background="../static/images/login_bg.gif">
+            <table width="713" border="0" cellspacing="0" cellpadding="0">
+                <tr>
+                    <td width="349" height="128"><img src="../static/images/login_logo.gif" width="349" height="128"></td>
+                    <td rowspan="2" valign="top"><img src="../static/images/login_img.jpg" width="364" height="360"></td>
+                </tr>
+                <tr>
+                    <td height="232" align="right" valign="top" background="../static/images/login_idbg.jpg">
+                        <table width="275" border="0" cellpadding="0" cellspacing="0">
+                            <tr>
+                                <td class="loginsfont" height="20">
+                                </td>
+                            </tr>
+                        </table>
+                        <table width="213" border="0" cellpadding="0" cellspacing="0">
+                            <form name="form" id="form" method="post" autocomplete="off">
+                                <tr>
+                                    <td height="21">&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                </tr>
+                                <tr>
+                                    <td width="130" height="26"><input name="user_id" alt="ID" type="text" class="tform" size="14" maxlength="20" tabIndex="1">
+                                        <input type="hidden" name="div" value="U" /></td>
+                                    <td width="70" rowspan="2"><img src="../static/images/login_btn.gif" name="login" id="btn_login" width="63" height="50" border="0" style="cursor:pointer;" onMouseOver="document.login.src='../static/images/login_btn-1.gif'" onMouseOut="document.login.src='../static/images/login_btn.gif'"></td>
+                                </tr>
+                                <tr>
+                                    <td width="130" height="26"><input name="passwd" alt="비밀번호" type="password" class="tform" size="14" maxlength="30" style="ime-mode:active;" tabIndex="2"></td>
+                                </tr>
+                            </form>
+                        </table>
+                        <br>
+                        <table width="295" height="65" border="0" cellpadding="0" cellspacing="5">
+                            <tr height="5">
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td valign="middle" align="left">
+                                    <font color="red" style="font-family: '돋움','돋움체';font-size:11px;">로그인 후 30분간 서비스 요청이(마우스 클릭) 없으면<br>서버연결은 자동 종료 됩니다!</font>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2"><img src="../static/images/login_bttm.gif" width="713" height="48"></td>
+                </tr>
+            </table>
+        </td>
+    </tr>
+    <tr>
+        <td align="center">&nbsp;</td>
+    </tr>
+</table>
+</body>
+</html>
