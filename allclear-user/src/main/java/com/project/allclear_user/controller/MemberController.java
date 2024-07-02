@@ -25,4 +25,10 @@ public class MemberController {
     public LoginDto.ResponseDto login(@RequestBody LoginDto.RequestDto loginDto){
         return memberService.login(loginDto);
     }
+
+    public boolean changeInfo(@RequestBody SignupDto.RequestDto requestDto){
+       memberService.changeInfo(requestDto);
+
+        return true;
+    }
 }
