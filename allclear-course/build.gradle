@@ -28,16 +28,21 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
 	implementation 'nz.net.ultraq.thymeleaf:thymeleaf-layout-dialect'
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	implementation group: 'com.fasterxml.jackson.datatype', name: 'jackson-datatype-hibernate5'
+	implementation 'javax.persistence:javax.persistence-api:2.2'
 
-	developmentOnly 'org.springframework.boot:spring-boot-devtools'
+	// Testing dependencies
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testImplementation 'junit:junit:4.13.1'
 
-	implementation 'org.projectlombok:lombok'
+	// Lombok for annotation processing
 	compileOnly 'org.projectlombok:lombok'
 	annotationProcessor 'org.projectlombok:lombok'
 
-	testImplementation 'org.springframework.boot:spring-boot-starter-test'
-	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+	// Development tools
+	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 
+	// H2 database for runtime
 	runtimeOnly 'com.h2database:h2'
 }
 

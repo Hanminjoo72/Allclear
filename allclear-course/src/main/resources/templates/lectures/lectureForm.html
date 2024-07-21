@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Create Lecture</title>
+</head>
+<!--강의 등록 페이지(임시)-->
+<body>
+<h1>Create Lecture</h1>
+<form th:action="@{/ui/createLecture}" th:object="${lectureDto}" method="post">
+  <div>
+    <label>Student ID:</label>
+    <input type="text" th:field="*{studentId}" />
+  </div>
+  <div>
+    <label>Professor ID:</label>
+    <input type="text" th:field="*{professorId}" />
+  </div>
+  <div>
+    <label>Department ID:</label>
+    <input type="text" th:field="*{departmentId}" />
+  </div>
+  <div>
+    <label>Lecture Code:</label>
+    <input type="text" th:field="*{lectureCode}" />
+  </div>
+  <div>
+    <label>Course division:</label>
+    <input type="text" th:field="*{division}" />
+  </div>
+  <div>
+    <label>Lecture Name:</label>
+    <input type="text" th:field="*{lectureName}" />
+  </div>
+  <div>
+    <label>학년 선택:</label>
+    <select th:field="*{grade}">
+      <option value="1">1학년</option>
+      <option value="2">2학년</option>
+      <option value="3">3학년</option>
+      <option value="4">4학년</option>
+      <option value="5">5학년</option>
+      <option value="6">6학년</option>
+      <option value="">전체 학년</option>
+    </select>
+  </div>
+  <div>
+    <label>Credit:</label>
+    <input type="text" th:field="*{credit}" />
+  </div>
+  <div>
+    <label>Lecture Day:</label>
+    <input type="text" th:field="*{lectureDay}" />
+  </div>
+  <div>
+    <label>Lecture Room:</label>
+    <input type="text" th:field="*{lectureRoom}" />
+  </div>
+  <div>
+    <label>Lecture Time:</label>
+    <input type="text" th:field="*{lectureTime}" />
+  </div>
+  <div>
+    <label>Lecture Year:</label>
+    <input type="text" th:field="*{lectureYear}" />
+  </div>
+  <div>
+    <label>Semester:</label>
+    <input type="text" th:field="*{semester}" />
+  </div>
+  <div>
+    <label>Syllabus:</label>
+    <input type="text" th:field="*{syllabus}" />
+  </div>
+  <div>
+    <button type="submit">Submit</button>
+  </div>
+</form>
+</body>
+</html>

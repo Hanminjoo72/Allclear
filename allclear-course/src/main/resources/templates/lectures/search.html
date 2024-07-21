@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>개설과목 조회</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" th:href="@{/css/search.css}">
+</head>
+<body>
+<header></header>
+<div class="container mt-5">
+    <h2>개설과목 조회</h2>
+    <div class="form-group">
+        <label>검색 유형</label>
+        <div class="form-check">
+            <input class="form-check-input" type="radio" id="departmentRadio" name="searchType" value="department" onclick="showFields('department')">
+            <label class="form-check-label" for="departmentRadio">개설학과</label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="radio" id="lectureNameRadio" name="searchType" value="lectureName" onclick="showFields('lectureName')">
+            <label class="form-check-label" for="lectureNameRadio">교과목명</label>
+        </div>
+        <div class="form-check">
+            <input class="form-check-input" type="radio" id="lectureCodeRadio" name="searchType" value="lectureCode" onclick="showFields('lectureCode')">
+            <label class="form-check-label" for="lectureCodeRadio">학수번호</label>
+        </div>
+    </div>
+
+    <!-- 개설학과 라디오 버튼 클릭 시 나타남 -->
+    <div id="departmentFields" class="form-fields">
+        <form th:action="@{/lectures/search/department}" method="get">
+            <input type="hidden" name="searchType" value="department"/>
+            <div class="form-group">
+                <label>학과(전공)</label>
+                <select class="form-control" id="departmentSelect" name="departmentId">
+                    <option value="">전체</option>
+                    <!-- 옵션은 JavaScript로 동적으로 추가됨 -->
+                </select>
+            </div>
+            <div class="form-group">
+                <label>학년</label>
+                <select class="form-control" id="gradeSelect" name="grade">
+                    <option value="1">1학년</option>
+                    <option value="2">2학년</option>
+                    <option value="3">3학년</option>
+                    <option value="4">4학년</option>
+                    <option value="5">5학년</option>
+                    <option value="6">6학년</option>
+                    <option value="">전체 학년</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>과목</label>
+                <select class="form-control" id="lectureTitleSelect" name="lectureName">
+                    <option value="">과목 선택</option>
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary">검색</button>
+        </form>
+    </div>
+
+    <!-- 교과목명 라디오 버튼 클릭 시 나타남 -->
+    <div id="lectureNameFields" class="form-fields" style="display: none;">
+        <form th:action="@{/lectures/search/keyword}" method="get">
+            <input type="hidden" name="searchType" value="lectureName"/>
+            <label>검색어</label>
+            <input type="text" name="keyword" id="keywordSelect" placeholder="Keyword"/>
+            <label>과목</label>
+            <select class="form-control" id="lectureNameSelect" name="lectureName">
+                <option value="">과목 선택</option>
+            </select>
+
+            <button type="submit" class="btn btn-primary">검색</button>
+        </form>
+    </div>
+
+    <!-- 학수번호 라디오 버튼 클릭 시 나타남 -->
+    <div id="lectureCodeFields" class="form-fields" style="display: none;">
+        <form th:action="@{/lectures/search/lectureCode}" method="get">
+            <input type="hidden" name="searchType" value="lectureCode"/>
+            <label>학수 번호</label>
+            <input type="text" name="lectureCode" placeholder="Lecture Code"/>
+            <label>분반</label>
+            <input type="text" name="division" placeholder="Division"/>
+            <button type="submit" class="btn btn-primary">검색</button>
+        </form>
+    </div>
+
+    <div id="searchResults" th:if="${lectures != null}">
+        <h3>검색 결과</h3>
+        <table class="table">
+            <thead>
+            <tr>
+                <th>과목</th>
+                <th>학과</th>
+                <th>학년</th>
+                <!-- 필요한 다른 열 추가 -->
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="lecture : ${lectures}">
+                <td th:text="${lecture.lectureName}"></td>
+                <td th:text="${lecture.department.name}"></td>
+                <td th:text="${lecture.grade}"></td>
+                <!-- 필요한 다른 열 추가 -->
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const params = new URLSearchParams(window.location.search);
+        const searchType = params.get('searchType');
+        const departmentRadio = document.getElementById('departmentRadio');
+        const lectureNameRadio = document.getElementById('lectureNameRadio');
+        const lectureCodeRadio = document.getElementById('lectureCodeRadio');
+
+        if (searchType === 'department') {
+            departmentRadio.checked = true;
+            showFields('department');
+        } else if (searchType === 'lectureName') {
+            lectureNameRadio.checked = true;
+            showFields('lectureName');
+        } else if (searchType === 'lectureCode') {
+            lectureCodeRadio.checked = true;
+            showFields('lectureCode');
+        }
+        document.querySelector('input[name="keyword"]').value = params.get('keyword') || '';
+        document.querySelector('input[name="lectureCode"]').value = params.get('lectureCode') || '';
+        document.querySelector('input[name="division"]').value = params.get('division') || '';
+
+        const departmentSelect = document.getElementById('departmentSelect');
+        if (departmentSelect) {
+            departmentSelect.value = params.get('departmentId') || '';
+        }
+
+        const gradeSelect = document.getElementById('gradeSelect');
+        if (gradeSelect) {
+            gradeSelect.value = params.get('grade') || '';
+        }
+
+        fetchDepartments();
+
+        document.getElementById('departmentSelect').addEventListener('change', fetchLectureTitles);
+        document.getElementById('gradeSelect').addEventListener('change', fetchLectureTitles);
+
+        document.querySelector('input[name="keyword"]').addEventListener('input', fetchLectureTitles);
+        fetchLectureTitles();
+    });
+
+    function showFields(fieldType) {
+        const fields = ['departmentFields', 'lectureNameFields', 'lectureCodeFields'];
+        fields.forEach(id => document.getElementById(id).style.display = 'none');
+
+        document.getElementById(fieldType + 'Fields').style.display = 'block';
+    }
+
+    function fetchDepartments() {
+        fetch('/lectures/api/departments')
+            .then(response => response.json())
+            .then(data => updateDepartments(data))
+            .catch(error => console.error('Error fetching departments:', error));
+    }
+
+    function updateDepartments(departments) {
+        const select = document.getElementById('departmentSelect');
+        select.innerHTML = '<option value="">전체</option>'; // Clear previous options
+
+        departments.forEach(dept => {
+            const option = document.createElement('option');
+            option.value = dept.id;
+            option.textContent = dept.name;
+            select.appendChild(option);
+        });
+    }
+
+    function fetchLectureTitles() {
+        const departmentId = document.getElementById('departmentSelect').value;
+        const grade = document.getElementById('gradeSelect').value;
+        const keyword = document.querySelector('input[name="keyword"]').value;
+
+        if (departmentId && grade) {
+            fetch(`/lectures/api/titles?departmentId=${encodeURIComponent(departmentId)}&grade=${encodeURIComponent(grade)}`)
+                .then(response => response.json())
+                .then(data => {
+                    const select = document.getElementById('lectureTitleSelect');
+                    select.innerHTML = '<option value="">과목 선택</option>'; // Clear previous options
+                    data.forEach(title => {
+                        const option = document.createElement('option');
+                        option.value = title;
+                        option.text = title;
+                        select.appendChild(option);
+                    });
+                })
+                .catch(error => console.error('Error fetching lecture titles:', error));
+        }
+        if (keyword) {
+            fetch(`/lectures/api/lectureTitle?keyword=${encodeURIComponent(keyword)}`)
+                .then(response => response.json())
+                .then(data => {
+                    const select = document.getElementById('lectureNameSelect');
+                    select.innerHTML = '<option value="">과목 선택</option>'; // Clear previous options
+                    data.forEach(title => {
+                        const option = document.createElement('option');
+                        option.value = title;
+                        option.text = title;
+                        select.appendChild(option);
+                    });
+                })
+                .catch(error => console.error('Error fetching lecture titles:', error));
+        }
+
+    }
+</script>
+</body>
+</html>
