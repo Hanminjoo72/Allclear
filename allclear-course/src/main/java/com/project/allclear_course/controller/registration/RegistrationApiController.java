@@ -25,4 +25,12 @@ public class RegistrationApiController {
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 
+    //빠른 수강신청
+    @PostMapping("/quick")
+    public ResponseEntity<Void> quickRegister(@RequestBody final RegistrationRequestDto request) {
+        //TODO 사용자 정보 받아오기
+        registrationService.quickRegister(1L, request);
+        return ResponseEntity.status(HttpStatus.OK).build();
+    }
+
 }

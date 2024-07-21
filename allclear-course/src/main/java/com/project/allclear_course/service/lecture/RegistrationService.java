@@ -30,4 +30,14 @@ public class RegistrationService {
         registrationRepository.save(newRegistration);
     }
 
+    //빠른 수강 신청
+    public void quickRegister(Long studentId, RegistrationRequestDto requestDto) {
+        final Lecture lecture = lectureRepository.findByCourseNumberAndClassNumber(requestDto.getCourseNumber(), requestDto.getClassNumber()).get();
+        final Registration newRegistration = Registration.builder()
+                .studentId(studentId)
+                .lecture(lecture)
+                .build();
+        registrationRepository.save(newRegistration);
+    }
+
 }
