@@ -25,6 +25,8 @@ public class Lecture extends BaseEntity {
 
     private String courseNumber;
 
+    private String classNumber;
+
     private int credit;
 
     private String lectureDay;
