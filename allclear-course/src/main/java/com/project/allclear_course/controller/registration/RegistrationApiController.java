@@ -33,4 +33,11 @@ public class RegistrationApiController {
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 
+    //수강 취소
+    @PutMapping("/{registrationId}")
+    public ResponseEntity<Void> delete(@PathVariable Long registrationId) {
+        registrationService.delete(registrationId);
+        return ResponseEntity.status(HttpStatus.OK).build();
+    }
+
 }

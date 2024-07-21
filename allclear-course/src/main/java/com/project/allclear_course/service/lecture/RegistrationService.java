@@ -40,4 +40,9 @@ public class RegistrationService {
         registrationRepository.save(newRegistration);
     }
 
+    //수강 취소
+    public void delete(Long registrationId) {
+        Registration registration = registrationRepository.findById(registrationId).get();
+        registration.delete();
+    }
 }
