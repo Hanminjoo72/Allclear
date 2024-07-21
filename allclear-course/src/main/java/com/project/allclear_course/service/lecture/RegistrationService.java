@@ -1,6 +1,8 @@
 package com.project.allclear_course.service.lecture;
 
+import com.project.allclear_course.domain.dto.RegistrationListResponseDto;
 import com.project.allclear_course.domain.dto.RegistrationRequestDto;
+import com.project.allclear_course.domain.dto.RegistrationResponseDto;
 import com.project.allclear_course.domain.entity.Lecture;
 import com.project.allclear_course.domain.entity.Registration;
 import com.project.allclear_course.repository.lecture.LectureRepository;
@@ -42,7 +44,13 @@ public class RegistrationService {
 
     //수강 취소
     public void delete(Long registrationId) {
-        Registration registration = registrationRepository.findById(registrationId).get();
+        final Registration registration = registrationRepository.findById(registrationId).get();
         registration.delete();
+    }
+
+    //수강신청 내역 조회
+    public RegistrationListResponseDto read(Long studentId) {
+        final List<Registration> list = registrationRepository.findByStudentId(studentId);
+        return RegistrationListResponseDto.from(list);
     }
 }

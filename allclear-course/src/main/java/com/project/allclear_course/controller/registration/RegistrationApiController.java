@@ -1,6 +1,8 @@
 package com.project.allclear_course.controller.registration;
 
+import com.project.allclear_course.domain.dto.RegistrationListResponseDto;
 import com.project.allclear_course.domain.dto.RegistrationRequestDto;
+import com.project.allclear_course.domain.dto.RegistrationResponseDto;
 import com.project.allclear_course.domain.entity.Registration;
 import com.project.allclear_course.service.lecture.RegistrationService;
 import lombok.RequiredArgsConstructor;
@@ -40,4 +42,11 @@ public class RegistrationApiController {
         return ResponseEntity.status(HttpStatus.OK).build();
     }
 
+    //수강 신청 내역 조회
+    @GetMapping("")
+    public ResponseEntity<RegistrationListResponseDto> read() {
+        //TODO 사용자 정보 받아오기
+        RegistrationListResponseDto response = registrationService.read(1L);
+        return ResponseEntity.ok().body(response);
+    }
 }
