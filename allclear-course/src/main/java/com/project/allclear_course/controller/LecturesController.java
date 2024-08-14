@@ -25,7 +25,7 @@ public class LecturesController {
 
     @GetMapping
     public String showLectures(Model model, @RequestParam(required = false) Long studentId) {
-        List<Lecture> lectures = lectureService.getAllLectures();
+        List<Lecture> lectures = lectureService.getAllLecture();
         model.addAttribute("lectures", lectures);
         model.addAttribute("studentId", studentId);
         return "lectures";
