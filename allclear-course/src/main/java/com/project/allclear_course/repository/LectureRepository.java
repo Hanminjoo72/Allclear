@@ -16,7 +16,7 @@ public interface LectureRepository extends JpaRepository<Lecture, Long> {
 
     List<Lecture> findByDepartmentIdAndGrade(Long departmentId, String grade);
 
-    Optional<Lecture> findByCourseNumberAndClassNumber(String courseNumber, String classNumber);
+    Optional<Lecture> findByLectureCodeAndDivision(String lectureCode, String division);
 
     //검색유형 - 개설학과
     @Query("SELECT l FROM Lecture l WHERE " +
