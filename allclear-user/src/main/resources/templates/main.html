@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Main Page</title>
+</head>
+<body>
+<!-- 사용자 데이터 표시 -->
+<div>
+    <p>Access Token: <span th:text="${user.accessToken}">Token</span></p>
+
+    <!-- 프로필 링크 -->
+    <a class="login-link" href="javascript:void(0);" onclick="callApiWithAccessToken()">프로필</a>
+</div>
+
+<script th:inline="javascript">
+    function callApiWithAccessToken() {
+        // Thymeleaf 표현식으로 AccessToken 변수 설정
+        var accessToken = /*[[${user.accessToken}]]*/ 'default_token';
+
+        // Fetch API를 사용하여 GET 요청 전송
+        fetch('/profile', {
+            method: 'GET',
+            headers: {
+                'Authorization': 'Bearer ' + accessToken
+            }
+        });
+
+        // 응답 처리를 서버에 맡긴다
+    }
+</script>
+</body>
+</html>
