@@ -5,9 +5,49 @@
     <title>개설과목 조회</title>
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" th:href="@{/css/search.css}">
+
 </head>
 <body>
-<header></header>
+<header class="header">
+    <p id="header_01">공지사항
+        <span class="hover-image">
+           <img  class="hover-img" th:src="@{/images/menu01.gif}" alt="공지사항 이미지">
+        </span>
+    </p>
+    <p>
+        |
+    </p>
+    <p id="header_02">개설교과목조회
+        <span class="hover-image">
+            <img class="hover-img" th:src="@{/images/menu02.gif}" alt="개설교과목조회 이미지">
+        </span>
+    </p>
+    <p>
+        |
+    </p>
+    <p id="header_03">위시리스트 보기
+        <span class="hover-image">
+            <img class="hover-img" th:src="@{/images/menu03.gif}"  alt="위시리스트 보기 이미지">
+        </span>
+    </p>
+    <p>
+        |
+    </p>
+    <p id="header_04">수강신청
+        <span class="hover-image">
+            <img class="hover-img" th:src="@{/images/menu04.gif}"  alt="수강신청 이미지">
+        </span>
+    </p>
+    <p>
+        |
+    </p>
+    <p id="header_05">수강신청결과조회
+        <span class="hover-image">
+             <img class="hover-img" th:src="@{/images/menu05.gif}"  alt="수강신청결과조회 이미지">
+        </span>
+    </p>
+</header>
+
 <div class="container mt-5">
     <h2>개설과목 조회</h2>
     <div class="form-group">
@@ -69,7 +109,6 @@
             <select class="form-control" id="lectureNameSelect" name="lectureName">
                 <option value="">과목 선택</option>
             </select>
-
             <button type="submit" class="btn btn-primary">검색</button>
         </form>
     </div>

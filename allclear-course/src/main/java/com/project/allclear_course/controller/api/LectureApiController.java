@@ -53,20 +53,23 @@ public class LectureApiController {
             department = departmentRepository.save(department); // Save department to generate ID
         }
 
-        Lecture lecture = new Lecture();
-        lecture.setStudentId(lectureDto.getStudentId());
-        lecture.setProfessor(professor);
-        lecture.setDepartment(department);
-        lecture.setLectureCode(lectureDto.getLectureCode());
-        lecture.setLectureName(lectureDto.getLectureName());
-        lecture.setGrade(lecture.getGrade());
-        lecture.setCredit(lectureDto.getCredit());
-        lecture.setLectureDay(lectureDto.getLectureDay());
-        lecture.setLectureRoom(lectureDto.getLectureRoom());
-        lecture.setLectureTime(lectureDto.getLectureTime());
-        lecture.setLectureYear(lectureDto.getLectureYear());
-        lecture.setSemester(lectureDto.getSemester());
-        lecture.setSyllabus(lectureDto.getSyllabus());
+        Lecture lecture = Lecture.builder()
+                .studentId(lectureDto.getStudentId())
+                .professor(professor)
+                .department(department)
+                .lectureCode(lectureDto.getLectureCode())
+                .division(String.valueOf(lectureDto.getDivision()))
+                .lectureName(lectureDto.getLectureName())
+                .grade(lectureDto.getGrade())
+                .credit(lectureDto.getCredit())
+                .lectureDay(lectureDto.getLectureDay())
+                .lectureRoom(lectureDto.getLectureRoom())
+                .lectureTime(lectureDto.getLectureTime())
+                .lectureYear(lectureDto.getLectureYear())
+                .semester(lectureDto.getSemester())
+                .syllabus(lectureDto.getSyllabus())
+                .build();
+
 
         return lectureService.saveLecture(lecture);
     }

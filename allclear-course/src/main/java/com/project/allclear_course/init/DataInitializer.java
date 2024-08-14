@@ -15,7 +15,6 @@ import org.springframework.stereotype.Component;
 import java.util.HashMap;
 import java.util.Map;
 
-
 @Component
 public class DataInitializer {
 
@@ -34,7 +33,7 @@ public class DataInitializer {
 
     @PostConstruct
     public void init() {
-        //colleages
+        // Colleges
         String collegesData = "인문대학;사회과학대학;자연정보과학대학;약학대학;예술대학;디자인대학;공연예술대학;문화지식융합대학;미래인재융합대학;교양대학;연계-융복합전공";
         Map<String, College> collegesMap = new HashMap<>();
 
@@ -45,7 +44,7 @@ public class DataInitializer {
             collegesMap.put(collegeName, college);
         }
 
-        //departments
+        // Departments
         String departmentsData = "국어국문학전공,인문대학;국사학전공,인문대학;문예창작전공,인문대학;영어전공,인문대학;일어일본학전공,인문대학;중어중국학전공,인문대학;유러피언스터디즈전공,인문대학;"
                 + "경영학전공,사회과학대학;경제학전공,사회과학대학;국제경영학전공,사회과학대학;문헌정보학전공,사회과학대학;사회복지학전공,사회과학대학;아동학전공,사회과학대학;"
                 + "식품영양학전공,자연정보과학대학;보건관리학전공,자연정보과학대학;응용화학학전공,자연정보과학대학;화장품학전공,자연정보과학대학;컴퓨터학전공,자연정보과학대학;정보통계학전공,자연정보과학대학;체육학전공,자연정보과학대학;"
@@ -72,7 +71,7 @@ public class DataInitializer {
             departmentsMap.put(departmentName, department);
         }
 
-        //professor
+        // Professors
         String professorsData = "여태천,국어국문학전공;홍순애,국어국문학전공;오규환,국어국문학전공;" +
                 "이용우,국사학전공;최존석,국사학전공;남미혜,국사학전공;" +
                 "윤대녕,문예창작전공;이예은,문예창작전공;하철승,문예창작전공;"+
@@ -95,6 +94,7 @@ public class DataInitializer {
             professorsMap.put(professorName, professor);
         }
 
+        // Lectures
         String lecturesData = "1,여태천,국어국문학전공,국문B0002,1,한국어의이해,1,3,수[05] 금[02],인A0303,수[05] 금[02],2024,1,강의계획서;"
                 + "1,홍순애,국어국문학전공,국문B0003,1,현대문학의이론과실제,2,3,화[06] 목[06],인A0304,화[06] 목[06],2024,2,강의계획서;"
                 + "1,오규환,국어국문학전공,국문K0001,1,고전문학의이해,3,3, 수[06] 목[04],인A0304,화[06] 목[06],2024,2,강의계획서;";
@@ -102,9 +102,9 @@ public class DataInitializer {
         for (String lectureData : lecturesData.split(";")) {
             String[] parts = lectureData.split(",");
 
-            Long studentId = Long.parseLong(parts[0]);
+            // Long studentId = Long.parseLong(parts[0]); // No need to parse or use this since it's not used in Lecture
             String professorName = parts[1];
-            String departmentName =parts[2];
+            String departmentName = parts[2];
             String lectureCode = parts[3];
             String division = parts[4];
             String lectureName = parts[5];
@@ -120,21 +120,21 @@ public class DataInitializer {
             Department department = departmentsMap.get(departmentName);
             Professor professor = professorsMap.get(professorName);
 
-            Lecture lecture = new Lecture();
-            lecture.setStudentId(studentId);
-            lecture.setProfessor(professor);
-            lecture.setDepartment(department);
-            lecture.setLectureCode(lectureCode);
-            lecture.setLectureName(lectureName);
-            lecture.setDivision(division);
-            lecture.setGrade(grade);
-            lecture.setCredit(credit);
-            lecture.setLectureRoom(lectureRoom);
-            lecture.setLectureDay(lectureDay);
-            lecture.setLectureYear(lectureYear);
-            lecture.setLectureTime(lectureTime);
-            lecture.setSemester(semester);
-            lecture.setSyllabus(syllabus);
+            Lecture lecture = Lecture.builder()
+                    .professor(professor)
+                    .department(department)
+                    .lectureCode(lectureCode)
+                    .lectureName(lectureName)
+                    .division(division)
+                    .grade(grade)
+                    .credit(credit)
+                    .lectureRoom(lectureRoom)
+                    .lectureDay(lectureDay)
+                    .lectureYear(lectureYear)
+                    .lectureTime(lectureTime)
+                    .semester(semester)
+                    .syllabus(syllabus)
+                    .build();
 
             lectureRepository.save(lecture);
         }
