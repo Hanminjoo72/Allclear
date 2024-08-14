@@ -5,7 +5,7 @@ import com.project.allclear_course.domain.dto.RegistrationRequestDto;
 import com.project.allclear_course.domain.dto.RegistrationResponseDto;
 import com.project.allclear_course.domain.entity.Lecture;
 import com.project.allclear_course.domain.entity.Registration;
-import com.project.allclear_course.repository.lecture.LectureRepository;
+import com.project.allclear_course.repository.LectureRepository;
 import com.project.allclear_course.repository.lecture.RegistrationRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

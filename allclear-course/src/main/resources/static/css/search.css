@@ -1,0 +1,41 @@
+.header {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    background-color: #0056b3;
+    padding: 10px;
+}
+
+#header_01, #header_02, #header_03, #header_04, #header_05 {
+    position: relative; /* 상대적 위치 지정 */
+    width: fit-content;
+    background-color: #0056b3;
+    color: #ffffff;
+    text-align: center;
+    padding: 10px;
+    border-radius: 5px;
+    margin: 0 5px;
+}
+
+/* 기본적으로 이미지를 숨깁니다 */
+.hover-img {
+    display: none;
+    position: absolute;
+    top: 15%; /* 텍스트 아래에 표시 */
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100px; /* 이미지 크기 조정 */
+    /*background-color: white; !* 이미지 배경 *!*/
+    padding: 5px; /* 이미지 여백 */
+    /*border-radius: 5px; !* 이미지 모서리 둥글게 *!*/
+    /*box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.2); !* 그림자 효과 *!*/
+}
+
+/* p 요소에 마우스를 올렸을 때 이미지 표시 */
+#header_01:hover .hover-img,
+#header_02:hover .hover-img,
+#header_03:hover .hover-img,
+#header_04:hover .hover-img,
+#header_05:hover .hover-img {
+    display: block;
+}

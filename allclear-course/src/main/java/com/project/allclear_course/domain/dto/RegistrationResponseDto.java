@@ -22,8 +22,8 @@ public class RegistrationResponseDto {
         return new RegistrationResponseDto(
                 registration.getLecture().getId(),
                 "전선",
-                registration.getLecture().getCourseNumber(),
-                registration.getLecture().getClassNumber(),
+                registration.getLecture().getLectureCode(),
+                registration.getLecture().getDivision(),
                 "컴퓨터프로그래밍",
                 registration.getLecture().getProfessor().getName(),
                 registration.getLecture().getLectureDay(),
