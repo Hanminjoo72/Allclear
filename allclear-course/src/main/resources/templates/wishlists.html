@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Wishlists</title>
+</head>
+<body>
+<h1>Wishlists</h1>
+
+<ul>
+    <li th:each="wishlist : ${wishlists}">
+        <span th:text="${wishlist.lecture.courseNumber}">Lecture Title</span>
+        <span th:text="${wishlist.priority}">Priority</span>
+        <!-- Update Priority Form -->
+        <form th:action="@{/wishlists/{wishlistId}/priority(wishlistId=${wishlist.id})}" method="post">
+            <input type="number" name="priority" th:value="${wishlist.priority}">
+            <input type="hidden" name="studentId" th:value="${studentId}">
+            <button type="submit">Update Priority</button>
+        </form>
+        <!-- Delete Form -->
+        <form th:action="@{/wishlists/{wishlistId}/delete(wishlistId=${wishlist.id})}" method="post">
+            <input type="hidden" name="studentId" th:value="${studentId}">
+            <button type="submit">Delete</button>
+        </form>
+    </li>
+</ul>
+</body>
+</html>

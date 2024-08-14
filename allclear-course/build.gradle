@@ -36,14 +36,19 @@ dependencies {
 	testImplementation 'junit:junit:4.13.1'
 
 	// Lombok for annotation processing
+	implementation 'org.projectlombok:lombok'
 	compileOnly 'org.projectlombok:lombok'
 	annotationProcessor 'org.projectlombok:lombok'
+	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 
 	// Development tools
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 
 	// H2 database for runtime
 	runtimeOnly 'com.h2database:h2'
+
+	//redis
+	implementation 'org.springframework.boot:spring-boot-starter-data-redis'
 }
 
 tasks.named('test') {

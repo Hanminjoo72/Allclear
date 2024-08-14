@@ -3,21 +3,20 @@ package com.project.allclear_course.service;
 import com.project.allclear_course.domain.dto.LectureDto;
 import com.project.allclear_course.domain.entity.Lecture;
 import com.project.allclear_course.repository.LectureRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
+@RequiredArgsConstructor
 @Service
 public class LectureService {
 
-    private final LectureRepository lectureRepository;
+    private final WishlistService wishlistService;
 
-    @Autowired
-    public LectureService(LectureRepository lectureRepository) {
-        this.lectureRepository = lectureRepository;
-    }
+    private final LectureRepository lectureRepository;
 
     public Lecture saveLecture(Lecture lecture) {
         return lectureRepository.save(lecture);
@@ -27,6 +26,14 @@ public class LectureService {
         return lectureRepository.findAll();
     }
 
+
+    public Lecture getLectureById(Long id) {
+        return (Lecture)this.lectureRepository.findById(id).orElse((Lecture) null);
+    }
+
+//    public void addToWishlist(Long lectureId, Long studentId) {
+//        this.wishlistService.addToWishlist(lectureId, studentId);
+//    }
 
 
     public List<String> findLectureTitlesByKeyword(String keyword) {
