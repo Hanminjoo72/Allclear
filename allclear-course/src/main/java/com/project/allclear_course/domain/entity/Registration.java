@@ -1,15 +1,19 @@
 package com.project.allclear_course.domain.entity;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
-@Entity
 @Getter
+@Builder
 @NoArgsConstructor
-public class Register extends BaseEntity {
+@AllArgsConstructor
+@Entity
+public class Registration extends BaseEntity {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "register_id")
@@ -23,7 +27,10 @@ public class Register extends BaseEntity {
 
     private int rank;
 
-    private boolean cancelStatus;
+    @Builder.Default
+    private boolean cancelStatus = false;
 
-    private LocalDateTime registerDate;
+    public void delete() {
+        this.cancelStatus = true;
+    }
 }
