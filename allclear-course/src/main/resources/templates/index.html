@@ -1,13 +1,32 @@
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html>
+<<<<<<< Updated upstream
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{common/layout}">
+
+<!-- 대체하고 싶은 요소에 layout:fragment 속성을 부여 -->
+<th:block layout:fragment="content">
+    <!-- Begin Page Content -->
+    <div class="container-fluid">
+        ..
+    </div>
+</th:block>
+</html>
+=======
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>Index</title>
 </head>
 <body>
-
+<h1>Welcome</h1>
+<form action="/lectures" method="get">
+    <label for="studentId">Enter Student ID:</label>
+    <input type="text" id="studentId" name="studentId">
+    <button type="submit">Go to Lectures</button>
+</form>
 </body>
 </html>
+>>>>>>> Stashed changes
