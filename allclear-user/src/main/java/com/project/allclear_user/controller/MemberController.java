@@ -1,37 +1,46 @@
 package com.project.allclear_user.controller;
 
 import com.project.allclear_user.domain.dto.LoginDto;
+import com.project.allclear_user.domain.dto.ProfileDto;
 import com.project.allclear_user.domain.dto.SignupDto;
+import com.project.allclear_user.domain.entity.Student;
 import com.project.allclear_user.service.MemberService;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-@RestController
-@RequestMapping("/api/member")
+@Controller
+@RequestMapping("/api/member/")
 @AllArgsConstructor
+@Slf4j
 public class MemberController {
 
     private final MemberService memberService;
 
     @PostMapping("/signup")
-    public boolean signUp(@RequestBody SignupDto.RequestDto signupDto){
-        return memberService.signUp(signupDto);
+    public ResponseEntity<Boolean> signUp(SignupDto.RequestDto signupDto){
+        return ResponseEntity.ok(memberService.signUp(signupDto));
     }
 
-    @PostMapping
-    public LoginDto.ResponseDto login(@RequestBody LoginDto.RequestDto loginDto){
-        return memberService.login(loginDto);
+    @PostMapping("/login")
+    public ResponseEntity<LoginDto.ResponseDto> login(LoginDto.RequestDto loginDto){
+        return ResponseEntity.ok(memberService.login(loginDto));
     }
 
-    public boolean changeInfo(@RequestBody SignupDto.RequestDto requestDto){
-       memberService.changeInfo(requestDto);
-
-        return true;
+    @PatchMapping("/profile")
+    public ResponseEntity<Boolean> changeProfile(ProfileDto requestDto, @AuthenticationPrincipal Student student){
+       return ResponseEntity.ok(memberService.changeInfo(requestDto, student));
     }
 
-    @GetMapping("test")
-    public boolean test(){
-        return true;
+        @GetMapping("/profile")
+    public ResponseEntity<ProfileDto> getProfile(Student student){
+        return ResponseEntity.ok(memberService.getProfile(student));
     }
+
+
 }

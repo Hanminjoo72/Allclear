@@ -10,7 +10,7 @@ public class SignupDto {
     @Builder
     @Getter
     public static class RequestDto{
-        private Long loginId;
+        private String loginId;
         private String password;
         private String studentIdNumber;
         private int grade;
