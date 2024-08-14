@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+
+<th:block th:fragment="topbarFragment">
+    <!-- Topbar -->
+    <ul class="nav nav-pills">
+        <li class="nav-item"><a th:href="@{/board}" class="nav-link" aria-current="page">공지사항</a></li>
+        <li class="nav-item"><a th:href="@{/}" class="nav-link">개설교과목조회</a></li>
+        <li class="nav-item"><a th:href="@{/}" class="nav-link">위시리스트보기</a></li>
+        <li class="nav-item"><a th:href="@{/}" class="nav-link">수강신청</a></li>
+        <li class="nav-item"><a th:href="@{/}" class="nav-link">수강신청결과조회</a></li>
+    </ul>
+    <!-- End of Topbar -->
+
+</th:block>
+</html>
