@@ -4,6 +4,7 @@ import com.project.allclear_course.domain.entity.Lecture;
 import com.project.allclear_course.domain.entity.Wishlist;
 import com.project.allclear_course.service.LectureService;
 import com.project.allclear_course.service.WishlistService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,7 +13,15 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @Controller
-@RequestMapping("/wishlists")
+@RequiredArgsConstructor
+public class WishlistController {
+
+    @RequestMapping("/wishlist")
+    public String board() {
+        return "wishlist/wishlist";
+    }
+}
+/*@RequestMapping("/wishlists")
 public class WishlistController {
 
     @Autowired
@@ -54,4 +63,4 @@ public class WishlistController {
         wishlistService.updateWishlistPriority(wishlistId, priority);
         return "redirect:/wishlists?studentId=" + studentId;
     }
-}
+}*/
