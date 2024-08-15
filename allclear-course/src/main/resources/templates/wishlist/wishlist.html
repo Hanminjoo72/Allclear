@@ -12,7 +12,9 @@
     <title>SB Admin 2 - Tables</title>
 
     <!-- Custom fonts for this template -->
-    <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+    <!--<link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">-->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet" type="text/css">
+
     <link
             href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
             rel="stylesheet">
@@ -63,7 +65,19 @@
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">위시리스트</h6>
+                            <!--<h6 class="m-0 font-weight-bold text-primary">우선순위저장</h6>-->
+                            <a href="#" class="btn btn-success btn-icon-split" onclick="sortTable()">
+                            <span class="icon text-white-50">
+                                <i class="fas fa-check"></i>
+                            </span>
+                                <span class="text">우선순위저장</span>
+                            </a>
+                            <a href="#" class="btn btn-secondary btn-icon-split">
+                                        <span class="icon text-white-50">
+                                            <i class="fas fa-arrow-right"></i>
+                                        </span>
+                                <span class="text">위시리스트 담으러 가기</span>
+                            </a>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
@@ -71,6 +85,7 @@
                                     <thead>
                                     <tr>
                                         <th>NO</th>
+                                        <th>우선순위</th>
                                         <th>이수구분</th>
                                         <th>학수번호</th>
                                         <th>분반</th>
@@ -80,11 +95,15 @@
                                         <th>강의시간</th>
                                         <th>강의계획서</th>
                                         <th>비고</th>
+                                        <th>삭제</th>
                                     </tr>
                                     </thead>
                                     <tbody>
                                     <tr>
                                         <td>1</td>
+                                        <td>
+                                            <input type="number" class="form-control" placeholder="" />
+                                        </td>
                                         <td>교선</td>
                                         <td>교선B7065</td>
                                         <td>01</td>
@@ -94,9 +113,17 @@
                                         <td>동인관b0101 : 화[03/04]</td>
                                         <td></td>
                                         <td></td>
+                                        <td>
+                                            <a href="#" class="btn btn-danger btn-circle btn-sm">
+                                            <i class="fas fa-trash"></i>
+                                            </a>
+                                        </td>
                                     </tr>
                                     <tr>
                                         <td>2</td>
+                                        <td>
+                                            <input type="number" class="form-control" placeholder="" />
+                                        </td>
                                         <td>교선</td>
                                         <td>열린I1090</td>
                                         <td>01</td>
@@ -106,6 +133,11 @@
                                         <td></td>
                                         <td></td>
                                         <td></td>
+                                        <td>
+                                            <a href="#" class="btn btn-danger btn-circle btn-sm">
+                                                <i class="fas fa-trash"></i>
+                                            </a>
+                                        </td>
                                     </tr>
                                     </tbody>
                                 </table>
@@ -168,4 +200,6 @@
     <!-- Page level custom scripts -->
     <script src="js/demo/datatables-demo.js"></script>
     </th:block>
+
+
 </html>
