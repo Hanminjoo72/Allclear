@@ -50,6 +50,8 @@ dependencies {
 	//redis
 	implementation 'org.springframework.boot:spring-boot-starter-data-redis'
 
+	//kafka
+
 	// https://mvnrepository.com/artifact/org.apache.kafka/kafka-clients
 	implementation 'org.apache.kafka:kafka-clients:3.1.0'
 
