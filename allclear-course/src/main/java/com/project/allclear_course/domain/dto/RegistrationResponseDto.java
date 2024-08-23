@@ -12,6 +12,7 @@ public class RegistrationResponseDto {
     private final String courseNumber;
     private final String classNumber;
     private final String name;
+    private final int credit;
     private final String professor;
     private final String lectureDay;
     private final String reenrollment;
@@ -24,7 +25,8 @@ public class RegistrationResponseDto {
                 "전선",
                 registration.getLecture().getLectureCode(),
                 registration.getLecture().getDivision(),
-                "컴퓨터프로그래밍",
+                registration.getLecture().getLectureName(),
+                registration.getLecture().getCredit(),
                 registration.getLecture().getProfessor().getName(),
                 registration.getLecture().getLectureDay(),
                 "-",

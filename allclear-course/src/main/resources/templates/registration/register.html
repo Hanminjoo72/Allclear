@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{common/layout}">
+
+<!-- 대체하고 싶은 요소에 layout:fragment 속성을 부여 -->
+<th:block layout:fragment="content">
+    <!-- Begin Page Content -->
+    <div class="container-fluid">
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+
+            <!-- Main Content -->
+            <div id="content">
+
+                <!-- Topbar -->
+                <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+
+                    <!-- Sidebar Toggle (Topbar) -->
+                    <form class="form-inline">
+                        <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                    </form>
+
+                    <!-- Topbar Navbar -->
+                        <form role="form" action="/registration/register/quick" th:object="${request}" method="post">
+                            빠른 수강신청 &nbsp;&nbsp;&nbsp; 학수번호: <input type="text" th:field="*{lectureCode}"> &nbsp;&nbsp; 분반: <input type="text" th:field="*{division}"> <button type="submit" class="btn btn-primary">신청</button>
+                        </form>
+                </nav>
+                <!-- End of Topbar -->
+
+                <!-- Begin Page Content -->
+                <div class="container-fluid">
+                    위시리스트
+                    <!-- DataTales Example -->
+                    <div class="card shadow mb-4">
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-bordered" id="dataTable1" width="100%" cellspacing="0">
+                                    <thead>
+                                    <tr>
+                                        <th>NO</th>
+                                        <th>학과(전공)</th>
+                                        <th>학년과정</th>
+                                        <th>이수구분</th>
+                                        <th>학수번호</th>
+                                        <th>분반</th>
+                                        <th>교과목명</th>
+                                        <th>학점(시간)</th>
+                                        <th>강의계획서</th>
+                                        <th>첨부파일</th>
+                                        <th>담당교수</th>
+                                        <th>강의시간</th>
+                                        <th>수강인원</th>
+                                        <th>비고</th>
+                                        <th>수강신청</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr th:each="item: ${wishlist}">
+                                        <td th:text="${item.id}"></td>
+                                        <td th:text="${item.lecture.department.name}"></td>
+                                        <td>교선</td>
+                                        <td th:text="${item.lecture.lectureCode}"></td>
+                                        <td th:text="${item.lecture.division}"></td>
+                                        <td th:text="${item.lecture.lectureName}"></td>
+                                        <td th:text="${item.lecture.credit}"></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td th:text="${item.lecture.professor.name}"></td>
+                                        <td th:text="${item.lecture.lectureTime}"></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td><button type="button" class="btn btn-outline-danger"
+                                                    th:onclick="'javascript:register('+${item.lecture.id}+')'">신청</button></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <!-- /.container-fluid -->
+
+                <!-- Begin Page Content -->
+                <div class="container-fluid">
+                    수강과목
+                    <!-- DataTales Example -->
+                    <div class="card shadow mb-4">
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-bordered" id="dataTable2" width="100%" cellspacing="0">
+                                    <thead>
+                                    <tr>
+                                        <th>NO</th>
+                                        <th>이수구분</th>
+                                        <th>학수번호</th>
+                                        <th>분반</th>
+                                        <th>교과목명</th>
+                                        <th>학점(시간)</th>
+                                        <th>담당교수</th>
+                                        <th>강의시간</th>
+                                        <th>재수강정보</th>
+                                        <th>비고</th>
+                                        <th>삭제</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr th:each="item: ${registration}">
+                                        <td th:text="${item.id}"></td>
+                                        <td th:text="${item.classification}"></td>
+                                        <td th:text="${item.courseNumber}"></td>
+                                        <td th:text="${item.classNumber}"></td>
+                                        <td th:text="${item.name}"></td>
+                                        <td th:text="${item.credit}"></td>
+                                        <td th:text="${item.professor}"></td>
+                                        <td th:text="${item.lectureDay}"></td>
+                                        <td th:text="${item.reenrollment}"></td>
+                                        <td th:text="${item.note}"></td>
+                                        <td><button type="button" class="btn btn-outline-danger"
+                                                    th:onclick="'javascript:drop('+${item.id}+')'">삭제</button></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.container-fluid -->
+
+            </div>
+            <!-- End of Main Content -->
+
+
+        </div>
+        <!-- End of Content Wrapper -->
+
+    </div>
+
+    <script>
+        function register(id) {
+            const link = "/registration/register/" + id;
+            location.href = link;
+        }
+
+        function drop(id) {
+            const link = "/registration/" + id + "/delete";
+            location.href = link;
+        }
+
+    </script>
+
+</th:block>
+
+</html>

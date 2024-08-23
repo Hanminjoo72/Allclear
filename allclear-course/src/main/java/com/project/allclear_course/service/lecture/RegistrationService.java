@@ -42,8 +42,7 @@ public class RegistrationService {
 
     //수강 취소
     public void delete(Long registrationId) {
-        final Registration registration = registrationRepository.findById(registrationId).get();
-        registration.delete();
+        registrationRepository.deleteById(registrationId);
     }
 
     //수강신청 내역 조회
