@@ -36,7 +36,7 @@ public class SecurityConfig {
     @Order(0)
     public WebSecurityCustomizer webSecurityCustomizer() {
         return web -> web.ignoring()
-                .requestMatchers("api/member/login", "/login", "/signup", "/signup-page", "/login-page");
+                .requestMatchers("api/member/login", "/login", "/signup", "/signup-page", "/login-page", "/images/**", "/static/**");
     }
 
     // Bean for password encoding
@@ -55,29 +55,21 @@ public class SecurityConfig {
     @Bean
     protected SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
-                // Disable CSRF for stateless APIs
                 .csrf(AbstractHttpConfigurer::disable)
 
-                // Configure session management to be stateless
                 .sessionManagement(sessionManagement ->
                         sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 )
 
-                // Add filters: JwtExceptionFilter first, then JwtAuthenticationFilter
                 .addFilterBefore(jwtExceptionFilter, UsernamePasswordAuthenticationFilter.class)
                 .addFilterBefore(new JwtAuthenticationFilter(authenticationManager(authenticationConfiguration), jwtProvider), UsernamePasswordAuthenticationFilter.class)
 
-                // Configure authorization rules
                 .authorizeHttpRequests(authorizeRequests ->
                         authorizeRequests
-                                // Public endpoints
                                 .requestMatchers("/api/member/login", "/h2-console/**").permitAll()
 
-                                // Secure all other endpoints
                                 .anyRequest().authenticated()
                 )
-
-                // Frame options for H2 Console
                 .headers(headersConfigurer ->
                         headersConfigurer
                                 .frameOptions(frameOptions -> frameOptions.sameOrigin())
