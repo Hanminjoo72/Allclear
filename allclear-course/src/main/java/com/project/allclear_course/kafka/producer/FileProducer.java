@@ -35,7 +35,7 @@ public class FileProducer {
         //KafkaProducer객체 생성 -> ProducerRecord생성 -> send() 비동기 방식 전송
 
         //파일 위치
-        String filePath = "D:\\4th_grade\\Hanium\\Allclear\\allclear-course\\src\\main\\java\\com\\project\\allclear_course\\repository\\excelFile\\courses.txt";
+        String filePath = "D:\\4th_grade\\Hanium\\Allclear\\allclear-course\\src\\main\\resources\\excelFile\\courses.txt";
         sendFileMessage(kafkaProducer, topicName,filePath);
         kafkaProducer.close();
 
@@ -60,7 +60,12 @@ public class FileProducer {
                     String token = matcher.group().replaceAll("^\"|\"$", ""); // 큰따옴표 제거
                     tokens.add(token); // tokens 리스트에 추가
                 }
+                System.out.println("ss테스트 문자열");
 
+                // 토큰 값을 로그로 출력
+                for (int i = 0; i < tokens.size(); i++) {
+                    logger.info("Token " + i + ": " + tokens.get(i));
+                }
                 if (!tokens.isEmpty()) {
                     key = tokens.get(0); // 첫 번째 토큰을 key로 사용
                     StringBuffer value = new StringBuffer();
@@ -84,7 +89,7 @@ public class FileProducer {
 
     private static void sendMessage(KafkaProducer<String, String> kafkaProducer, String topicName, String key, String value) {
         ProducerRecord<String, String> producerRecord = new ProducerRecord<>(topicName,key, value);
-        logger.info("key:{}, value:{}" + key, value);
+        logger.info("key:{}, value:{}" , key, value);
         //kafkaProducer message send
         kafkaProducer.send(producerRecord, (metadata, exception) -> {
             if (exception == null) {
