@@ -23,4 +23,8 @@ public class Professor extends BaseEntity {
     private String name;
 
     private String lab;
+
+    public Professor(Long id) {
+        this.id = id;
+    }
 }

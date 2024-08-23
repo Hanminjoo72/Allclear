@@ -20,4 +20,8 @@ public class Department extends BaseEntity {
     private College college;
 
     private String name;
+
+    public Department(Long id) {
+        this.id = id;
+    }
 }

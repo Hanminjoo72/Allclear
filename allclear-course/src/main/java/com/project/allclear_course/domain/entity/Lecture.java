@@ -8,49 +8,51 @@ import lombok.NoArgsConstructor;
 @Entity
 @Getter
 @NoArgsConstructor(force = true)
+@Table(schema = "lecture")
 public class Lecture extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "lecture_id")
-    private Long id;
+    private Long id; //기본키
 
-    private final Long studentId;
+//    private final Long studentId; //필요없음
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "professor_id")
-    private final Professor professor;
+    private  Professor professor; //교수
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "department_id")
-    private final Department department;
+    private  Department department; //학과
 
-    private final String lectureCode; //학수번호
-    private final String division; //분반
+    private  String lectureCode; //학수번호
+    private  String division; //분반
 
-    private final String lectureName;
+    private  String lectureName;  //강의 이름
 
-    private final String grade; //학년
+    private  String grade; //학년
 
-    private final int credit;
+    private  int credit; //학점
 
-    private final String lectureDay;
+    private  String lectureDay; //강의 시간
 
-    private final String lectureRoom;
+    private  String lectureRoom; //강의 시간
 
-    private final String lectureTime;
+    private  String lectureTime; //강의 시간
 
-    private final int lectureYear;
+    private  int lectureYear; //강의 년도
 
-    private final int semester;
+    private  int semester; //학기
 
-    private final String syllabus;
+    private  String syllabus; //강의 계획서
 
     @Builder
-    public Lecture(Long studentId, Professor professor, Department department, String lectureCode, String division,
+    public Lecture (Long id, Professor professor, Department department, String lectureCode, String division,
                    String lectureName, String grade, int credit, String lectureDay, String lectureRoom,
                    String lectureTime, int lectureYear, int semester, String syllabus) {
-        this.studentId = studentId;
+//        this.studentId = studentId;
+        this.id = id;
         this.professor = professor;
         this.department = department;
         this.lectureCode = lectureCode;
