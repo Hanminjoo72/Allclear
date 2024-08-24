@@ -50,7 +50,7 @@ public class Lecture extends BaseEntity {
     @Builder
     public Lecture (Long id, Professor professor, Department department, String lectureCode, String division,
                    String lectureName, String grade, int credit, String lectureDay, String lectureRoom,
-                   String lectureTime, int lectureYear, int semester, String syllabus) {
+                   String lectureTime, int lectureYear, int semester, String syllabus, boolean delStatus) {
 //        this.studentId = studentId;
         this.id = id;
         this.professor = professor;
@@ -66,5 +66,6 @@ public class Lecture extends BaseEntity {
         this.lectureYear = lectureYear;
         this.semester = semester;
         this.syllabus = syllabus;
+        this.delStatus = delStatus;
     }
 }
