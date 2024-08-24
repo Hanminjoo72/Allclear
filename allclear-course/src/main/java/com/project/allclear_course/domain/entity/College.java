@@ -9,6 +9,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
+@Table(schema = "lecture")
 public class College extends BaseEntity {
 
     @Id
@@ -18,5 +19,5 @@ public class College extends BaseEntity {
 
     private String name;
 
-    private int totalNumber;
+//    private int totalNumber;
 }

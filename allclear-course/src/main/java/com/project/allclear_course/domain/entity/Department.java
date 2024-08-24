@@ -9,6 +9,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
+@Table(schema = "lecture")
 public class Department extends BaseEntity {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
