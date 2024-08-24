@@ -19,14 +19,15 @@
             align-items: center;
             flex-direction: column;
             height: 100vh;
-            background: url('../static/images/login_bg.gif') no-repeat center center fixed;
+            background: url('/images/login_bg.gif') no-repeat center center fixed;
             background-size: cover;
         }
 
         .logo-container {
             width: 80%;
-            max-width: 800px; /* Logo maximum width */
-            margin-bottom: 20px; /* Space between logo and form */
+            max-width: 800px;
+            margin-bottom: 20px;
+            margin: auto;
         }
 
         .logo-container img {
@@ -131,14 +132,14 @@
 <!-- Signup Form Container -->
 <div class="signup-container">
     <div class="logo-container">
-        <img src="../static/images/signup_logo.png" alt="동덕여자대학교 로고">
+        <img src="/images/signup_logo.png" alt="동덕여자대학교 로고">
     </div>
     <div class="signup-title">회원가입</div>
     <form class="signup-form" name="signupForm" id="signupForm" method="post" action="/signup"
           autocomplete="off" onsubmit="return validateSignupForm()">
-        <input type="text" name="loginId" placeholder="ID" required>
-        <input type="password" name="password" placeholder="비밀번호" required>
-        <input type="text" name="studentIdNumber" placeholder="학번" required>
+        <input type="text" name="loginId" placeholder="ID" required autocomplete="off">
+        <input type="password" name="password" placeholder="비밀번호" required autocomplete="off">
+        <input type="text" name="studentIdNumber" placeholder="학번" required autocomplete="off">
         <select name="grade" required>
             <option value="" disabled selected>학년 선택</option>
             <option value="1">1학년</option>

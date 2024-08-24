@@ -6,7 +6,6 @@ import com.project.allclear_user.domain.dto.SignupDto;
 import com.project.allclear_user.domain.entity.Student;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -22,29 +21,29 @@ public class UiController {
 
     @GetMapping("login-page")
     public String loginUi(){
-        return "login";
+        return "/member/login";
     }
 
 
     @GetMapping("signup-page")
     public String signUi(){
-        return "signup";
+        return "/member/signup";
     }
 
     @GetMapping("profile-page")
     public String profileUi(){
-        return "profile";
+        return "/member/profile";
     }
 
-    @PostMapping("login")
+    @PostMapping("/login")
     public String login(LoginDto.RequestDto loginDto, Model model){
         LoginDto.ResponseDto responseDto = memberController.login(loginDto).getBody();
         if (responseDto != null) {
             model.addAttribute("user", responseDto);
-            return "main";
+            return "/board/home";
         } else {
             model.addAttribute("error", "존재하지 않는 ID와 비밀번호 입니다.");
-            return "login";
+            return "/member/login";
         }
     }
 
