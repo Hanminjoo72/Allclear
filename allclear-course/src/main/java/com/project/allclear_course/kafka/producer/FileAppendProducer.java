@@ -32,7 +32,7 @@ public class FileAppendProducer {
         //KafkaProducer객체 생성 -> ProducerRecord생성 -> send() 비동기 방식 전송
         boolean sync = false;
         //파일 위치
-        File file = new File("D:\\4th_grade\\Hanium\\Allclear\\allclear-course\\src\\main\\resources\\excelFile\\courses._v3.txt");
+        File file = new File("D:\\4th_grade\\Hanium\\Allclear\\allclear-course\\src\\main\\resources\\excelFile\\courses_v3.txt");
         EventHandler eventHandler = new FileEventHandler(kafkaProducer,topicName,sync);
 
         //10초
