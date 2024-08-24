@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{common/layout}">
+
+<!-- 대체하고 싶은 요소에 layout:fragment 속성을 부여 -->
+<th:block layout:fragment="content">
+    <!-- Begin Page Content -->
+    <div class="container-fluid">
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+
+            <!-- Main Content -->
+            <div id="content">
+
+                <!-- Topbar -->
+                <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+
+                    <!-- Sidebar Toggle (Topbar) -->
+                    <form class="form-inline">
+                        <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                    </form>
+
+                    <!-- Topbar Navbar -->
+                    <ul class="navbar-nav ml-auto">
+                        <td align="right">신청학점 ( <font color="red"><span id="cdt">15.0</span></font> &nbsp;)&nbsp;&nbsp;&nbsp;OCU신청학점 ( <font color="blue"><span id="ocu">6.0</span></font> &nbsp;)</td>
+
+                    </ul>
+                </nav>
+                <!-- End of Topbar -->
+
+                <!-- Begin Page Content -->
+                <div class="container-fluid">
+
+                    <!-- Page Heading -->
+                    <h1 class="h3 mb-2 text-gray-800">수강신청내역</h1>
+                    <p class="mb-4"><a target="_blank"></a>.</p>
+                    <!-- DataTales Example -->
+                    <div class="card shadow mb-4">
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                    <thead>
+                                    <tr>
+                                        <th>NO</th>
+                                        <th>이수구분</th>
+                                        <th>학수번호</th>
+                                        <th>분반</th>
+                                        <th>교과목명</th>
+                                        <th>학점(시간)</th>
+                                        <th>담당교수</th>
+                                        <th>강의시간</th>
+                                        <th>재수강정보</th>
+                                        <th>비고</th>
+                                        <th>수강취소</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr th:each="item: ${response}">
+                                        <td th:text="${item.id}"></td>
+                                        <td th:text="${item.classification}"></td>
+                                        <td th:text="${item.courseNumber}"></td>
+                                        <td th:text="${item.classNumber}"></td>
+                                        <td th:text="${item.name}"></td>
+                                        <td th:text="${item.credit}"></td>
+                                        <td th:text="${item.professor}"></td>
+                                        <td th:text="${item.lectureDay}"></td>
+                                        <td th:text="${item.reenrollment}"></td>
+                                        <td th:text="${item.note}"></td>
+                                        <td></td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        수강취소 기간이 되면 수강취소 버튼(취소신청)이 나타납니다. <br>
+                        수강취소된 과목은 배경색이 붉은색으로 표시됩니다.
+                    </div>
+                </div>
+                <!-- /.container-fluid -->
+
+            </div>
+            <!-- End of Main Content -->
+
+
+        </div>
+        <!-- End of Content Wrapper -->
+
+    </div>
+</th:block>
+</html>

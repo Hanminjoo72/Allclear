@@ -16,7 +16,7 @@ import java.time.LocalDateTime;
 public class Registration extends BaseEntity {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "register_id")
+    @Column(name = "registration_id")
     private Long id;
 
     private Long studentId;
