@@ -18,10 +18,24 @@ public class LecturesDBHandler {
     private static final String INSERT_LECTURE_SQL = "INSERT INTO lecture.lecture " +
             "(lecture_id, department_id, lecture_code, lecture_name, division, " +
             " professor_id, credit, grade, lecture_day, lecture_time, " +
-            " lecture_year, semester, syllabus) " +
-            "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            " lecture_year, semester, syllabus, del_status) " +
+            "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
-
+    //파일이 바뀌었을 때 해당 아이디를 가진 강의가 있는지 확인하는 매서드
+    public boolean lectureExists(Long lectureId) {
+        String checkSql = "SELECT COUNT(*) FROM lecture.lecture WHERE lecture_id = ?";
+        try (PreparedStatement checkPrepared = connection.prepareStatement(checkSql)) {
+            checkPrepared.setLong(1, lectureId);
+            try (ResultSet rs = checkPrepared.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getInt(1) > 0;
+                }
+            }
+        } catch (SQLException e) {
+            logger.error("Error checking if lecture exists: {}", e.getMessage(), e);
+        }
+        return false;
+    }
     public LecturesDBHandler(String url, String user, String password) {
         try {
             this.connection = DriverManager.getConnection(url, user, password);
@@ -47,10 +61,44 @@ public class LecturesDBHandler {
             pstmt.setInt(11, lecture.getLectureYear()); // 수업년도
             pstmt.setInt(12, lecture.getSemester()); // 학기
             pstmt.setString(13, lecture.getSyllabus()); // 강의 계획서
+            pstmt.setBoolean(14, lecture.isDelStatus()); // del_status 값 추가
 
             pstmt.executeUpdate();
         } catch (SQLException e) {
             logger.error("Error inserting lecture: {}", e.getMessage(), e);
+        }
+    }
+
+    public void insertOrUpdateLecture(Lecture lecture) {
+        String updateSql = "UPDATE lecture.lecture SET department_id = ?, lecture_code = ?, lecture_name = ?, " +
+                "division = ?, professor_id = ?, credit = ?, grade = ?, lecture_day = ?, lecture_time = ?, " +
+                "lecture_year = ?, semester = ?, syllabus = ?, del_status = ? WHERE lecture_id = ?";
+
+        if (lectureExists(lecture.getId())) {
+            // Lecture exists, perform an update
+            try (PreparedStatement pstmt = connection.prepareStatement(updateSql)) {
+                pstmt.setLong(1, lecture.getDepartment() != null ? lecture.getDepartment().getId() : Types.NULL);
+                pstmt.setString(2, lecture.getLectureCode());
+                pstmt.setString(3, lecture.getLectureName());
+                pstmt.setString(4, lecture.getDivision());
+                pstmt.setLong(5, lecture.getProfessor() != null ? lecture.getProfessor().getId() : Types.NULL);
+                pstmt.setInt(6, lecture.getCredit());
+                pstmt.setString(7, lecture.getGrade());
+                pstmt.setString(8, lecture.getLectureDay());
+                pstmt.setString(9, lecture.getLectureTime());
+                pstmt.setInt(10, lecture.getLectureYear());
+                pstmt.setInt(11, lecture.getSemester());
+                pstmt.setString(12, lecture.getSyllabus());
+                pstmt.setBoolean(13, lecture.isDelStatus());
+                pstmt.setLong(14, lecture.getId());
+
+                pstmt.executeUpdate();
+            } catch (SQLException e) {
+                logger.error("Error updating lecture: {}", e.getMessage(), e);
+            }
+        } else {
+            // Lecture does not exist, perform an insert
+            insertLecture(lecture);
         }
     }
 
@@ -73,6 +121,7 @@ public class LecturesDBHandler {
                 insertPrepared.setInt(11, lecture.getLectureYear()); // 수업년도
                 insertPrepared.setInt(12, lecture.getSemester()); // 학기
                 insertPrepared.setString(13, lecture.getSyllabus()); // 강의 계획서
+                insertPrepared.setBoolean(14, lecture.isDelStatus()); // del_status 값 추가
                 insertPrepared.addBatch(); // Add to batch
             }
             insertPrepared.executeBatch(); // Execute batch
