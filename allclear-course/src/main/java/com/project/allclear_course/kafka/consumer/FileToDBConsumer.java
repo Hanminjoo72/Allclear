@@ -53,7 +53,7 @@ public class FileToDBConsumer<K extends Serializable, V extends Serializable> {
     private void processRecord(ConsumerRecord<K, V> record) {
         Lecture lecture = makeLecture(record);
         if (lecture != null) {
-            this.lecturesDBHandler.insertLecture(lecture);
+            this.lecturesDBHandler.insertOrUpdateLecture(lecture);
         } else {
             logger.error("Skipping record due to invalid lecture: " + record.value());
         }
@@ -133,6 +133,7 @@ public class FileToDBConsumer<K extends Serializable, V extends Serializable> {
                     .lectureYear(lectureYear)
                     .semester(semester)
                     .syllabus(syllabus)
+                    .delStatus(false)
                     .build();
         } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
             logger.error("Error parsing message: " + messageValue, e);
@@ -161,12 +162,14 @@ public class FileToDBConsumer<K extends Serializable, V extends Serializable> {
         List<Lecture> lectures = makeLectures(records);
         if (lectures != null && !lectures.isEmpty()) {
             try {
-                lecturesDBHandler.insertLectures(lectures);
+                for (Lecture lecture : lectures) {
+                    this.lecturesDBHandler.insertOrUpdateLecture(lecture);
+                }
             } catch (Exception e) {
-                logger.error("Failed to insert lectures into the database", e);
+                logger.error("Failed to insert or update lectures in the database", e);
             }
         } else {
-            logger.warn("No valid lectures to insert or lectures list is empty");
+            logger.warn("No valid lectures to insert or update, or lectures list is empty");
         }
     }
 
