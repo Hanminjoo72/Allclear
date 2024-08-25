@@ -9,6 +9,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
+@Table(schema = "lecture")
 public class Professor extends BaseEntity {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,4 +23,8 @@ public class Professor extends BaseEntity {
     private String name;
 
     private String lab;
+
+    public Professor(Long id) {
+        this.id = id;
+    }
 }

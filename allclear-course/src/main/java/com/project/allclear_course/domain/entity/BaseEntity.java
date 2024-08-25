@@ -22,5 +22,7 @@ public class BaseEntity {
     @LastModifiedDate
     private LocalDateTime modifiedDate;
 
-    private boolean delStatus;
+    @Column(nullable = false)
+    boolean delStatus;
+
 }

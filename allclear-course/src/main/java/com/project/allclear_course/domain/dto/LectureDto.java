@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 public class LectureDto {
-    private Long studentId;
+    private Long id;
     private Long professorId;
     private Long departmentId;
     private String lectureCode;
@@ -23,10 +23,10 @@ public class LectureDto {
     private int semester;
     private String syllabus;
 
-    public LectureDto(Long studentId, Long professorId, Long departmentId, String lectureCode, int division,
+    public LectureDto( Long id, Long professorId, Long departmentId, String lectureCode, int division,
                       String lectureName, String grade, int credit, String lectureDay, String lectureRoom,
                       String lectureTime, int lectureYear, int semester, String syllabus) {
-        this.studentId = studentId;
+        this.id = id;
         this.professorId = professorId;
         this.departmentId = departmentId;
         this.lectureCode = lectureCode;

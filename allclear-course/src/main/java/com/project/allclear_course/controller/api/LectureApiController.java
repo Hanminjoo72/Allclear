@@ -54,7 +54,6 @@ public class LectureApiController {
         }
 
         Lecture lecture = Lecture.builder()
-                .studentId(lectureDto.getStudentId())
                 .professor(professor)
                 .department(department)
                 .lectureCode(lectureDto.getLectureCode())
