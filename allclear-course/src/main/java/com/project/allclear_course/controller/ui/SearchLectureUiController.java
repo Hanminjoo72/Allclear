@@ -48,7 +48,7 @@ public class SearchLectureUiController {
     @GetMapping("/search/department")
     public String searchByDepartment(Model model, @ModelAttribute LectureSearchForm form,
                                      @RequestParam(value = "searchType", required = false, defaultValue = "") String searchType) {
-        List<Lecture> lectures = lectureService.searchByDepartment(form.getDepartmentId(), form.getGrade(), form.getCourseName());
+        List<Lecture> lectures = lectureService.searchByDepartment(form.getDepartmentId(), form.getGrade(), form.getLectureName());
         model.addAttribute("lectures", lectures);
         model.addAttribute("searchType", searchType);  // Add searchType to model'
         System.out.println("searchType"+searchType);
