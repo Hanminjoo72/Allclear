@@ -17,9 +17,9 @@ public class LecturesDBHandler {
     // Lecture 테이블에 데이터 삽입하기 위한 SQL 쿼리
     private static final String INSERT_LECTURE_SQL = "INSERT INTO lecture.lecture " +
             "(lecture_id, department_id, lecture_code, lecture_name, division, " +
-            " professor_id, credit, grade, lecture_day, lecture_time, " +
+            " professor_id, credit,allowed_number_of_students, current_number_of_students, grade, lecture_day, lecture_time, " +
             " lecture_year, semester, syllabus, del_status) " +
-            "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            "VALUES (?, ?, ?, ?, ?, ?,?,?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
     //파일이 바뀌었을 때 해당 아이디를 가진 강의가 있는지 확인하는 매서드
     public boolean lectureExists(Long lectureId) {
@@ -55,13 +55,15 @@ public class LecturesDBHandler {
             pstmt.setString(5, lecture.getDivision()); // 분반
             pstmt.setLong(6, lecture.getProfessor() != null ? lecture.getProfessor().getId() : Types.NULL); // 교수 아이디
             pstmt.setInt(7, lecture.getCredit()); // 학점
-            pstmt.setString(8, lecture.getGrade()); // 이수필수여부
-            pstmt.setString(9, lecture.getLectureDay()); // 강의실 및 시간
-            pstmt.setString(10, lecture.getLectureTime()); // 수업시간
-            pstmt.setInt(11, lecture.getLectureYear()); // 수업년도
-            pstmt.setInt(12, lecture.getSemester()); // 학기
-            pstmt.setString(13, lecture.getSyllabus()); // 강의 계획서
-            pstmt.setBoolean(14, lecture.isDelStatus()); // del_status 값 추가
+            pstmt.setInt(8, lecture.getAllowedNumberOfStudents()); // 수강 가능 인원
+            pstmt.setInt(9, lecture.getCurrentNumberOfStudents()); // 현재 수강 인원
+            pstmt.setString(10, lecture.getGrade()); // 이수필수여부
+            pstmt.setString(11, lecture.getLectureDay()); // 강의실 및 시간
+            pstmt.setString(12, lecture.getLectureTime()); // 수업시간
+            pstmt.setInt(13, lecture.getLectureYear()); // 수업년도
+            pstmt.setInt(14, lecture.getSemester()); // 학기
+            pstmt.setString(15, lecture.getSyllabus()); // 강의 계획서
+            pstmt.setBoolean(16, lecture.isDelStatus()); // del_status 값 추가
 
             pstmt.executeUpdate();
         } catch (SQLException e) {
@@ -71,7 +73,7 @@ public class LecturesDBHandler {
 
     public void insertOrUpdateLecture(Lecture lecture) {
         String updateSql = "UPDATE lecture.lecture SET department_id = ?, lecture_code = ?, lecture_name = ?, " +
-                "division = ?, professor_id = ?, credit = ?, grade = ?, lecture_day = ?, lecture_time = ?, " +
+                "division = ?, professor_id = ?, credit = ?,allowed_number_of_students = ?,current_number_of_students = ?  , grade = ?, lecture_day = ?, lecture_time = ?, " +
                 "lecture_year = ?, semester = ?, syllabus = ?, del_status = ? WHERE lecture_id = ?";
 
         if (lectureExists(lecture.getId())) {
@@ -83,14 +85,16 @@ public class LecturesDBHandler {
                 pstmt.setString(4, lecture.getDivision());
                 pstmt.setLong(5, lecture.getProfessor() != null ? lecture.getProfessor().getId() : Types.NULL);
                 pstmt.setInt(6, lecture.getCredit());
-                pstmt.setString(7, lecture.getGrade());
-                pstmt.setString(8, lecture.getLectureDay());
-                pstmt.setString(9, lecture.getLectureTime());
-                pstmt.setInt(10, lecture.getLectureYear());
-                pstmt.setInt(11, lecture.getSemester());
-                pstmt.setString(12, lecture.getSyllabus());
-                pstmt.setBoolean(13, lecture.isDelStatus());
-                pstmt.setLong(14, lecture.getId());
+                pstmt.setInt(7, lecture.getAllowedNumberOfStudents()); // 수강 가능 인원
+                pstmt.setInt(8, lecture.getCurrentNumberOfStudents()); // 현재 수강 인원
+                pstmt.setString(9, lecture.getGrade());
+                pstmt.setString(10, lecture.getLectureDay());
+                pstmt.setString(11, lecture.getLectureTime());
+                pstmt.setInt(12, lecture.getLectureYear());
+                pstmt.setInt(13, lecture.getSemester());
+                pstmt.setString(14, lecture.getSyllabus());
+                pstmt.setBoolean(15, lecture.isDelStatus());
+                pstmt.setLong(16, lecture.getId());
 
                 pstmt.executeUpdate();
             } catch (SQLException e) {
@@ -115,13 +119,15 @@ public class LecturesDBHandler {
                 insertPrepared.setString(5, lecture.getDivision()); // 분반
                 insertPrepared.setLong(6, lecture.getProfessor() != null ? lecture.getProfessor().getId() : Types.NULL); // 교수 아이디
                 insertPrepared.setInt(7, lecture.getCredit()); // 학점
-                insertPrepared.setString(8, lecture.getGrade()); // 이수필수여부
-                insertPrepared.setString(9, lecture.getLectureDay()); // 강의실 및 시간
-                insertPrepared.setString(10, lecture.getLectureTime()); // 수업시간
-                insertPrepared.setInt(11, lecture.getLectureYear()); // 수업년도
-                insertPrepared.setInt(12, lecture.getSemester()); // 학기
-                insertPrepared.setString(13, lecture.getSyllabus()); // 강의 계획서
-                insertPrepared.setBoolean(14, lecture.isDelStatus()); // del_status 값 추가
+                insertPrepared.setInt(8, lecture.getAllowedNumberOfStudents()); // 수강 가능 인원
+                insertPrepared.setInt(9, lecture.getCurrentNumberOfStudents()); // 현재 수강 인원
+                insertPrepared.setString(10, lecture.getGrade()); // 이수필수여부
+                insertPrepared.setString(11, lecture.getLectureDay()); // 강의실 및 시간
+                insertPrepared.setString(12, lecture.getLectureTime()); // 수업시간
+                insertPrepared.setInt(13, lecture.getLectureYear()); // 수업년도
+                insertPrepared.setInt(14, lecture.getSemester()); // 학기
+                insertPrepared.setString(15, lecture.getSyllabus()); // 강의 계획서
+                insertPrepared.setBoolean(16, lecture.isDelStatus()); // del_status 값 추가
                 insertPrepared.addBatch(); // Add to batch
             }
             insertPrepared.executeBatch(); // Execute batch
@@ -152,30 +158,30 @@ public class LecturesDBHandler {
     }
 
     public static void main(String[] args) {
-        String url = "jdbc:postgresql://allclear-db.cjg6o2myyjuv.ap-northeast-2.rds.amazonaws.com:5432/allclear";
-        String user = "allclear";
-        String password = "allclear321!!";
-        LecturesDBHandler lecturesDBHandler = new LecturesDBHandler(url, user, password);
-
-        // Lecture 객체 예시
-        Lecture lecture = Lecture.builder()
-                .id(1L)  // lecture_id
-                .department(new Department(1L))  // department_id
-                .lectureCode("CS101")  // lecture_code
-                .lectureName("Introduction to Computer Science")  // lecture_name
-                .division("A")  // division
-                .professor(new Professor(1L))  // professor_id
-                .credit(3)  // credit
-                .grade("1")  // grade
-                .lectureDay("Monday")  // lecture_day
-                .lectureTime("09:00-10:30")  // lecture_time
-                .lectureYear(2024)  // lecture_year
-                .semester(1)  // semester
-                .syllabus("Course syllabus details")  // syllabus
-                .build();
-
-        // 단일 Lecture 객체 삽입
-        lecturesDBHandler.insertLecture(lecture);
-        lecturesDBHandler.close();
+//        String url = "jdbc:postgresql://allclear-db.cjg6o2myyjuv.ap-northeast-2.rds.amazonaws.com:5432/allclear";
+//        String user = "allclear";
+//        String password = "allclear321!!";
+//        LecturesDBHandler lecturesDBHandler = new LecturesDBHandler(url, user, password);
+//
+//        // Lecture 객체 예시
+//        Lecture lecture = Lecture.builder()
+//                .id(1L)  // lecture_id
+//                .department(new Department(1L))  // department_id
+//                .lectureCode("CS101")  // lecture_code
+//                .lectureName("Introduction to Computer Science")  // lecture_name
+//                .division("A")  // division
+//                .professor(new Professor(1L))  // professor_id
+//                .credit(3)  // credit
+//                .grade("1")  // grade
+//                .lectureDay("Monday")  // lecture_day
+//                .lectureTime("09:00-10:30")  // lecture_time
+//                .lectureYear(2024)  // lecture_year
+//                .semester(1)  // semester
+//                .syllabus("Course syllabus details")  // syllabus
+//                .build();
+//
+//        // 단일 Lecture 객체 삽입
+//        lecturesDBHandler.insertLecture(lecture);
+//        lecturesDBHandler.close();
     }
 }

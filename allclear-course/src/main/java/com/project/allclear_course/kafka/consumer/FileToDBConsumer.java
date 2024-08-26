@@ -104,12 +104,14 @@ public class FileToDBConsumer<K extends Serializable, V extends Serializable> {
             String division = tokens.get(3).trim();
             Long professorId = tryParseLong(tokens.get(5).trim());
             int credit = tryParseInt(tokens.get(6).trim());
-            String grade = tokens.get(7).trim();
-            String lectureDay = tokens.get(8).trim();
-            String lectureTime = tokens.get(9).trim();
-            int lectureYear = tryParseInt(tokens.get(10).trim());
-            int semester = tryParseInt(tokens.get(11).trim());
-            String syllabus = tokens.get(12).trim();
+            int allowedNumberOfStudents = tryParseInt(tokens.get(7).trim());
+            int currentNumberOfStudents = tryParseInt(tokens.get(8).trim());
+            String grade = tokens.get(9).trim();
+            String lectureDay = tokens.get(10).trim();
+            String lectureTime = tokens.get(11).trim();
+            int lectureYear = tryParseInt(tokens.get(12).trim());
+            int semester = tryParseInt(tokens.get(13).trim());
+            String syllabus = tokens.get(14).trim();
 
             if (lectureId == null || departmentId == null || professorId == null) {
                 logger.error("Invalid data: " + messageValue);
@@ -128,6 +130,8 @@ public class FileToDBConsumer<K extends Serializable, V extends Serializable> {
                     .lectureName(lectureName)
                     .grade(grade)
                     .credit(credit)
+                    .allowedNumberOfStudents(allowedNumberOfStudents)
+                    .currentNumberOfStudents(currentNumberOfStudents)
                     .lectureDay(lectureDay)
                     .lectureTime(lectureTime)
                     .lectureYear(lectureYear)

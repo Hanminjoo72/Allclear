@@ -34,6 +34,8 @@ public class Lecture extends BaseEntity {
     private  String grade; //학년
 
     private  int credit; //학점
+    private int allowedNumberOfStudents; //수강 가능 인원
+    private int currentNumberOfStudents;//현재 수강 인원
 
     private  String lectureDay; //강의 시간
 
@@ -49,7 +51,7 @@ public class Lecture extends BaseEntity {
 
     @Builder
     public Lecture (Long id, Professor professor, Department department, String lectureCode, String division,
-                   String lectureName, String grade, int credit, String lectureDay, String lectureRoom,
+                   String lectureName, String grade, int credit, int allowedNumberOfStudents, int currentNumberOfStudents, String lectureDay, String lectureRoom,
                    String lectureTime, int lectureYear, int semester, String syllabus, boolean delStatus) {
 //        this.studentId = studentId;
         this.id = id;
@@ -60,6 +62,8 @@ public class Lecture extends BaseEntity {
         this.lectureName = lectureName;
         this.grade = grade;
         this.credit = credit;
+        this.allowedNumberOfStudents = allowedNumberOfStudents;
+        this.currentNumberOfStudents = currentNumberOfStudents;
         this.lectureDay = lectureDay;
         this.lectureRoom = lectureRoom;
         this.lectureTime = lectureTime;
