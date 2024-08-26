@@ -18,8 +18,7 @@ public class DepartmentService {
     }
 
     public List<Department> getAllDepartments() {
-        return departmentRepository.findAll();
+        return departmentRepository.findAllByOrderByIdAsc();  // ID 기준으로 오름차순 정렬
     }
 
-    // 기타 필요한 메서드 구현
 }
